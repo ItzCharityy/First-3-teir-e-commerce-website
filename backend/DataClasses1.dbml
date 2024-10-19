@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Database1" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="Database1ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Review" Member="Reviews">
+    <Type Name="Review">
+      <Column Name="ReviewID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReviewText" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Rating" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReviewDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Product_Review" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
+      <Association Name="User_Review" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Product" Member="Products">
+    <Type Name="Product">
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ImageURL" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Popularity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StockQuantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateAdded" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Product_Review" Member="Reviews" ThisKey="ProductID" OtherKey="ProductID" Type="Review" />
+      <Association Name="Product_ShoppingCart" Member="ShoppingCarts" ThisKey="ProductID" OtherKey="ProductID" Type="ShoppingCart" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="SecName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Surname" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="PasswordHash" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(11)" CanBeNull="true" />
+      <Column Name="DOB" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsManager" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateRegistered" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="User_Review" Member="Reviews" ThisKey="UserID" OtherKey="UserID" Type="Review" />
+      <Association Name="User_ShoppingCart" Member="ShoppingCarts" ThisKey="UserID" OtherKey="UserID" Type="ShoppingCart" />
+      <Association Name="User_Invoice" Member="Invoices" ThisKey="UserID" OtherKey="UserID" Type="Invoice" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ShoppingCart" Member="ShoppingCarts">
+    <Type Name="ShoppingCart">
+      <Column Name="CartItemID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Product_ShoppingCart" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
+      <Association Name="User_ShoppingCart" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Invoices" Member="Invoices">
+    <Type Name="Invoice">
+      <Column Name="InvoiceID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InvoiceDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="TotalAmount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="User_Invoice" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

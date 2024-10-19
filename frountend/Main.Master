@@ -1,0 +1,299 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="st1.Main" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+   
+      <title>Waggy - Free eCommerce Pet Shop HTML Website Template</title>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="format-detection" content="telephone=no">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="author" content="">
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="css/vendor.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Chilanka&family=Montserrat:wght@300;400;500&display=swap"
+      rel="stylesheet">
+</head>
+<body>
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasWishList" aria-labelledby="wishlist">
+        <div class="offcanvas-header justify-content-center">
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+
+
+        <div class="offcanvas-body">
+            <div class="order-md-last">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-primary">Your wishLists</span>
+                <!-- this should dynamical change when i add things in the cart-->
+              <span class="badge bg-primary rounded-circle pt-2" id="wishCountOff" runat="server">0 </span>
+            </h4>
+                <div id="WishItems" runat="server">
+                   
+                </div>
+                 
+
+                 <a class="w-100 btn btn-primary btn-lg" href="Wishlist.aspx" >manage wishlist</a>
+            </div>
+        </div>
+    </div>
+
+  
+    <form id="form1" runat="server">
+    <!-- this is where the seach bar and the navbar start -->
+    <header>
+    <div class="container py-2">
+      <div class="row py-4 pb-0 pb-sm-4 align-items-center ">
+
+        <div class="col-sm-4 col-lg-3 text-center text-sm-start">
+          <div class="main-logo">
+            <a href="index.html">
+              <img src="images/logo.png" alt="logo" class="img-fluid">
+            </a>
+          </div>
+        </div>
+
+        <div class="col-sm-6 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block">
+          <div class="search-bar border rounded-2 px-3 border-dark-subtle">
+            <div id="search-form" class="text-center d-flex align-items-center" action="#" method="post">
+              <input type="text" class="form-control border-0 bg-transparent"
+                placeholder="Search for more than 10,000 products" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="col-sm-8 col-lg-4 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
+          <div class="support-box text-end d-none d-xl-block">
+            <span class="fs-6 secondary-font text-muted">Phone</span>
+            <h5 class="mb-0">+980-34984089</h5>
+          </div>
+          <div class="support-box text-end d-none d-xl-block">
+            <span class="fs-6 secondary-font text-muted">Email</span>
+            <h5 class="mb-0">waggy@gmail.com</h5>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <hr class="m-0">
+    </div>
+
+    <div class="container">
+
+
+  <!-- Main navigation menu -->
+  <nav class="main-menu d-flex navbar navbar-expand-lg">
+
+   
+
+    <!-- Toggler Button for Collapsible Menu -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Offcanvas Menu (Collapsible for Mobile View) -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+
+      <!-- Close Button for Offcanvas -->
+      <div class="offcanvas-header justify-content-center">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+
+      <!-- Offcanvas Body -->
+      <div class="offcanvas-body justify-content-between">
+
+        <!-- Category Filter Dropdown -->
+        <ul class="filter-categories border-0 mb-0 me-5">
+          <!-- User Information Box (Visible in Desktop View) -->
+            <li class="nav-item border rounded p-3 ms-3 " style="border-color: #007bff;" id="UserDetails" runat="server" visible="false">
+              <p class="fw-bold text-uppercase mb-1" id="Dname" runat="server" >Mr. A Smith</p> <!-- Bold Name at the Top -->
+              <p class="mb-0">Role: <span class="text-primary fw-semibold" id="DType" runat="server">Customer</span></p> <!-- Role Below -->
+            </li>
+        </ul>
+
+        <!-- Default Navigation Menu (Hidden by Default) -->
+        <ul class="navbar-nav menu-list list-unstyled d-flex justify-content-center align-items-center gap-md-3 mb-0" id="defaultNav" runat="server" visible="true">
+          <li class="nav-item">
+            <a href="Home.aspx" class="nav-link active">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="Shop.aspx" class="nav-link">Shop</a>
+          </li>
+        </ul>
+
+        <!-- Customer-Specific Navigation (Visible when logged in as Customer) -->
+        <ul class="navbar-nav menu-list list-unstyled d-flex justify-content-center align-items-center gap-md-3 mb-0" id="NavCustomer" runat="server" visible="false">
+          <li class="nav-item">
+            <a href="Home.aspx" class="nav-link active">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="Shop.aspx" class="nav-link">Shop</a>
+          </li>
+
+            <li class="nav-item">
+            <a href="ShoppingCart.aspx" class="nav-link">Shopping Cart</a>
+            </li>
+
+
+            <li class="nav-item">
+            <a href="InvoiceManagement.aspx" class="nav-link">Invoices</a>
+            </li>
+
+        </ul>
+
+        <!-- Manager-Specific Navigation (Visible when logged in as Manager) -->
+       <ul class="navbar-nav menu-list list-unstyled d-flex justify-content-center align-items-center gap-md-3 mb-0" id="NavManager" runat="server" visible="false">
+            <li class="nav-item">
+          <li class="nav-item">
+            <a href="Home.aspx" class="nav-link active">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="Shop.aspx" class="nav-link">Shop</a>
+          </li>
+          <li class="nav-item">
+            <a href="Manage.aspx" class="nav-link">Product Management</a>
+          </li>
+
+           <li class="nav-item">
+            <a href="InvoiceManagement.aspx" class="nav-link">Invoices</a>
+            </li>
+           <li class="nav-item">
+            <a href="ManageUsers.aspx" class="nav-link">Product Users</a>
+          </li>
+        </ul>
+
+        <!-- Desktop View User Section -->
+        <div class="d-none d-lg-flex align-items-end">
+          <ul class="d-flex justify-content-end list-unstyled m-0">
+
+
+               <!-- Wishlist Icon with Badge -->
+            <li class="mx-2 d-flex justify-content-center align-items-center  mx-3">
+              <a href="index.html" class="position-relative" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWishList" aria-controls="offcanvasWishList">
+                <iconify-icon icon="mdi:heart" class="fs-4"></iconify-icon>
+                <span class="position-absolute translate-middle badge rounded-circle bg-primary pt-2" id="addToWish2" runat="server">
+                  0
+                </span>
+              </a>
+            </li>
+
+               <!-- Persistent Cart (Visible only when the user is logged in) -->
+            <li class="mx-2  d-flex justify-content-center align-items-center" id="btnCart" runat="server" visible="false">
+              <a href="index.html" class="position-relative" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+                <iconify-icon icon="mdi:cart" class="fs-4"></iconify-icon>
+                <span class="position-absolute translate-middle badge rounded-circle bg-primary pt-2">
+                  0
+                </span>
+              </a>
+            </li>
+
+            
+
+
+              <!-- Register and Login Links -->
+            <li class="mx-2 d-flex justify-content-center align-items-center" id="RisNotLogged" runat="server">
+              <a href="Register.aspx" class="d-flex align-items-center text-decoration-none">
+                <iconify-icon icon="healthicons:person" class="fs-5 me-2"></iconify-icon>
+                <span>Register</span>
+              </a>
+            </li>
+
+            <li class="mx-2 d-flex justify-content-center align-items-center" id="LNotIsLogged" runat="server" >
+              <a href="login.aspx" class="d-flex align-items-center text-decoration-none">
+                <iconify-icon icon="healthicons:person" class="fs-5 me-2"></iconify-icon>
+                <span>Login</span>
+              </a>
+            </li>
+              
+               <li class="mx-2 d-flex justify-content-center align-items-center" id="Lloggedin" runat="server" visible="false">
+                
+                    <asp:LinkButton ID="btnLogout" CssClass="btn btn-danger d-flex align-items-center text-decoration-none" runat="server" OnClick="btnLogout_Click">
+                        Logout
+                    </asp:LinkButton>
+               
+            </li>
+
+
+           
+
+            
+
+
+
+           
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+
+  </header>
+
+
+
+    
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+
+
+    <div id="footer-bottom">
+    <div class="container">
+      <hr class="m-0">
+      <div class="row mt-3">
+        <div class="col-md-6 copyright">
+          <p class="secondary-font">© 2023 Waggy. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <p class="secondary-font">Free HTML Template by <a href="https://templatesjungle.com/" target="_blank"
+              class="text-decoration-underline fw-bold text-black-50"> TemplatesJungle</a> Distributed by <a href="https://themewagon.com/" target="_blank"
+              class="text-decoration-underline fw-bold text-black-50"> ThemeWagon</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+    <script src="js/jquery-1.11.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/script.js"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+</body>
+</html>
